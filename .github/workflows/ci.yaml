@@ -1,0 +1,85 @@
+name: Monorepo CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      order_service: ${{ steps.filter.outputs.order_service }}
+      payment_service: ${{ steps.filter.outputs.payment_service }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            order_service:
+              - 'order-service/**'
+            payment_service:
+              - 'payment-service/**'
+
+  test-order-service:
+    needs: changes
+    if: ${{ needs.changes.outputs.order_service == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./order-service
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Check formatting and linting with Ruff
+        run: |
+          poetry run ruff check .
+          poetry run ruff format --check .
+
+      - name: Run Pytest
+        run: poetry run pytest --cov
+
+  test-payment-service:
+    needs: changes
+    if: ${{ needs.changes.outputs.payment_service == 'true' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./payment-service
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Check formatting and linting with Ruff
+        run: |
+          poetry run ruff check .
+          poetry run ruff format --check .
+
+      - name: Run Pytest
+        run: poetry run pytest --cov
