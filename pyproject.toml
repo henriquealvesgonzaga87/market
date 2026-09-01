@@ -1,0 +1,95 @@
+[project]
+name = "market-project"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Henrique Gonzaga",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn (>=0.52.4,<0.53.0)",
+    "pydantic (>=2.13.5,<3.0.0)",
+    "sqlalchemy (>=2.0.52,<3.0.0)",
+    "alembic (>=1.19.1,<2.0.0)",
+    "ruff (>=0.16.5,<0.17.0)",
+    "pre-commit (>=4.6.2,<5.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+# Exclude common directories that don't need linting
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+# Maximum line length
+line-length = 88
+indent-width = 4
+
+# Target Python version
+target-version = "py310"
+
+[tool.ruff.lint]
+# Main rule selection:
+# - E, W: Pycodestyle (errors and warnings)
+# - F: Pyflakes (unused variables F841, unused imports F401)
+# - I: Isort (import sorting)
+# - UP: Pyupgrade (Python syntax modernization)
+# - B: Flake8-bugbear (common bugs and design flaws)
+# - SIM: Flake8-simplify (code simplification)
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+]
+
+ignore = []
+
+# Allow automatic fixes using `ruff check --fix`
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+# Built-in isort configuration
+combine-as-imports = true
+
+[tool.ruff.format]
+# Ruff formatter configuration (Black replacement)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
