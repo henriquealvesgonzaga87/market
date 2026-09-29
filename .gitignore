@@ -1,2 +1,7 @@
-venv
+*venv
 .ruff_cache
+.env
+.env.*
+!.env.example
+*vscode
+.mypy_cache
