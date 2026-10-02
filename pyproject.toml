@@ -14,7 +14,9 @@ dependencies = [
     "sqlalchemy (>=2.0.52,<3.0.0)",
     "alembic (>=1.19.1,<2.0.0)",
     "ruff (>=0.16.5,<0.17.0)",
-    "pre-commit (>=4.6.2,<5.0.0)"
+    "pre-commit (>=4.6.2,<5.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)"
 ]
 
 

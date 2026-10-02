@@ -12,10 +12,11 @@ COPY pyproject.toml poetry.lock ./
 RUN pip install poetry && poetry config virtualenvs.create false && poetry install --no-interaction --no-root
 
 # Copy this service's application code
-COPY payment-service/ ./
+COPY order-service/ ./
 
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Command to run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["echo", "Order Service Docker File not done yet"]
